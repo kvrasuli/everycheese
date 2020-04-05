@@ -1,3 +1,4 @@
+from everycheese.users.tests.factories import UserFactory
 from django.template.defaultfilters import slugify
 import factory
 import factory.fuzzy
@@ -15,6 +16,8 @@ class CheeseFactory(factory.django.DjangoModelFactory):
         [x[0] for x in Cheese.Firmness.choices]
     )
     country_of_origin = factory.Faker('country_code')
+    creator = factory.SubFactory(UserFactory)
+    
     class Meta:
         model = Cheese
 
