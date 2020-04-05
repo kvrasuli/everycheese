@@ -3,6 +3,7 @@ from model_utils.models import TimeStampedModel
 from autoslug import AutoSlugField
 from django_countries.fields import CountryField
 from django.urls import reverse
+from django.conf import settings
 
 class Cheese(TimeStampedModel):
 
@@ -25,7 +26,11 @@ class Cheese(TimeStampedModel):
     country_of_origin = CountryField(
         "Country of Origin", blank = True
     )
-
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        on_delete=models.SET_NULL
+    )
     def __str__(self):
         return self.name
 
